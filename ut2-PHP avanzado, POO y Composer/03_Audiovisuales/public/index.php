@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../src/equipos.php';
 require_once __DIR__ . '/../src/inventario.php';
-require_once __DIR__ . '/../template/vista.php';
-
 
 // Función facilitada: escapar la salida HTML.
 function e(string $valor): string
@@ -13,23 +11,21 @@ function e(string $valor): string
     return htmlspecialchars($valor, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+// TODO E1: leer $_GET con isset e is_string; devolver el defecto en otro caso.
 function entrada(string $clave, string $defecto = ''): string
 {
-    // TODO E1: leer $_GET con isset e is_string; devolver el defecto en otro caso.
-    if (isset($_GET[$clave]) && is_string($_GET[$clave])){
+    if (isset($_GET[$clave]) && is_string($_GET[$clave])) {
         return $_GET[$clave];
-    } else {
-        return $defecto;
     }
+    return $defecto;
 }
 
 $equipos = prepararEquipos($equipos, $prestamos);
 
 // TODO E2: sustituir estos valores provisionales por la lectura de los controles GET.
-// "q" en PHP es la palabra de la busqueda que se pone tras la interrogación
 $texto = entrada('q');
 $categoria = entrada('categoria');
-$soloDisponibles = entrada('disponibles') === '1'; // ??????
+$soloDisponibles = entrada('disponibles') === '1';
 $orden = entrada('orden', 'nombre');
 $id = entrada('id');
 $codigo = entrada('codigo');
@@ -47,12 +43,12 @@ if (!categoriaValida($categoria, $categorias)) {
     $categoria = '';
 }
 
-
 // TODO E4: llamar al filtrado y ordenación; preparar el resumen y las etiquetas del listado.
 $visibles = filtrarEquipos($equipos, $texto, $categoria, $soloDisponibles);
 $visibles = ordenarEquipos($visibles, $orden);
 $resumen = resumirEquipos($visibles);
 $etiquetas = generarEtiquetas($visibles, prefijo: 'Equipo: ');
+
 $seleccionado = null;
 $avisoFicha = '';
 

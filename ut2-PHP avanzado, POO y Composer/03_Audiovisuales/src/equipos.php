@@ -2,6 +2,19 @@
 
 declare(strict_types=1);
 
+if (!function_exists('mb_strtolower')) {
+    function mb_strtolower(string $string, string $encoding = 'UTF-8'): string {
+        return strtolower($string);
+    }
+}
+
+if (!function_exists('mb_substr')) {
+    function mb_substr(string $string, int $start, ?int $length = null, string $encoding = 'UTF-8'): string {
+        return substr($string, $start, $length ?? strlen($string));
+    }
+}
+
+// TODO 1: limpiar espacios con trim y preg_replace (tratamiento UTF-8)
 function limpiarEspacios(string $texto): string
 {
     return trim(preg_replace('/\s+/u', ' ', $texto));
@@ -12,6 +25,7 @@ function normalizarBusqueda(string $texto): string
     return mb_strtolower(limpiarEspacios($texto), 'UTF-8');
 }
 
+// TODO 2: obtener categorías con array_column, array_unique y array_values
 function obtenerCategorias(array $equipos): array
 {
     return array_values(array_unique(array_column($equipos, 'categoria')));
@@ -22,6 +36,7 @@ function categoriaValida(string $categoria, array $categorias): bool
     return $categoria === '' || array_search($categoria, $categorias, true) !== false;
 }
 
+// TODO 5: filtrar prestamos activos por equipoId y sumar unidades con array_reduce
 function unidadesPrestadas(array $prestamos, int $equipoId): int
 {
     return array_reduce(
@@ -50,13 +65,13 @@ function prepararEquipos(array $equipos, array $prestamos): array
     );
 }
 
+// TODO 3: filtrar por texto, categoría exacta y disponibles > 0 si $soloDisponibles es true
 function filtrarEquipos(
     array $equipos,
     string $texto,
     string $categoria,
     bool $soloDisponibles
-): array
-{
+): array {
     $textoBusqueda = normalizarBusqueda($texto);
 
     return array_filter($equipos, function (array $equipo) use ($textoBusqueda, $categoria, $soloDisponibles): bool {
@@ -68,6 +83,7 @@ function filtrarEquipos(
     });
 }
 
+// TODO 4: ordenar por 'disponibles' o 'nombre', desempagando por id ascendente
 function ordenarEquipos(array $equipos, string $orden): array
 {
     $copia = $equipos;
@@ -89,6 +105,7 @@ function ordenarEquipos(array $equipos, string $orden): array
     return $copia;
 }
 
+// TODO 6, 7 y 8: corregir y completar el resumen con array_reduce, array_any y array_all
 function resumirEquipos(array $equipos): array
 {
     return [
@@ -111,6 +128,7 @@ function transformarNombres(array $nombres, callable $callback): array
     return array_map($callback, $nombres);
 }
 
+// TODO 9: extraer nombres y aplicar transformarNombres con una closure que use $prefijo y limpiarEspacios
 function generarEtiquetas(array $equipos, string $prefijo = 'Equipo: '): array
 {
     $nombres = array_column($equipos, 'nombre');
@@ -126,6 +144,7 @@ function normalizarId(int|string $id): int
     return (int) $id;
 }
 
+// TODO 10: buscar por id con array_find
 function buscarPorId(array $equipos, int|string $id): ?array
 {
     $idBuscado = normalizarId($id);
@@ -133,6 +152,7 @@ function buscarPorId(array $equipos, int|string $id): ?array
     return array_find($equipos, fn(array $equipo): bool => $equipo['id'] === $idBuscado);
 }
 
+// TODO 11: devolver "Responsable pendiente" si es null
 function responsableVisible(?string $responsable): string
 {
     return $responsable ?? 'Responsable pendiente';
