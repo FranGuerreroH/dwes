@@ -9,10 +9,28 @@
 // encadenado a sus propiedades. Explica por qué autor contiene un objeto Autor y no una cadena.
 
 final class Autor{
-    public function __construct()
-    {
-        throw new \Exception('Not implemented');
-    }
+    public function __construct( public string $nombre){}
 }
 
-public class Categoria{}
+final class Categoria{
+    public function __construct( public string $nombre){}
+}
+
+final class Libro{
+    public function __construct(
+        public string $titulo,
+        public Autor $autor,
+        public Categoria $categoria
+    ){}
+}
+
+$autor = new Autor("Frank Herbert");
+$categoria = new Categoria("Ciencia ficción");
+$libro = new Libro("Dune", $autor, $categoria);
+
+echo $libro->titulo . "\n";
+echo $libro->autor->nombre . "\n";
+echo $libro->categoria->nombre . "\n";  
+
+// El objeto libro creado tiene como una de sus propiedades un objeto Autor, por lo que para acceder al nombre hay que hacerlo
+// mediante acceso encadenado a sus propiedades.
