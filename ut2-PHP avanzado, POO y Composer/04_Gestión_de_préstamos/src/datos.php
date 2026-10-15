@@ -9,7 +9,7 @@ $datos = [
      'categoria' => 'Terror', 'paginas' => 418, 'disponible' => false],
     ['id' => 30, 'titulo' => '1984', 'autor' => 'George Orwell',
      'categoria' => 'Ciencia ficción', 'paginas' => 328, 'disponible' => true],
-    ['id' => 40, 'titulo' => 'Solaris', 'autor' => null,
+    ['id' => 40, 'titulo' => 'Solaris', 'autor' => 'null',
      'categoria' => 'Ciencia ficción', 'paginas' => 216, 'disponible' => true],
     ['id' => 50, 'titulo' => 'It', 'autor' => 'Stephen King',
      'categoria' => 'Terror', 'paginas' => 1504, 'disponible' => true],

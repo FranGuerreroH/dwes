@@ -26,11 +26,11 @@ require_once __DIR__ . '/Libro.php';
 
 $autor = new Autor('Frank Herbert');
 $categoria = new Categoria('Ciencia ficción');
-$titulo = '';
-$paginas = 100;
+$titulo = 'Dune';
+$paginas = 412;
 $libro = new Libro(10, $titulo, $paginas, $autor, $categoria);
 
 echo $libro->paginas . "\n";
 echo $libro->titulo . "\n";
 
-
+// Se han probado los diferentes valores

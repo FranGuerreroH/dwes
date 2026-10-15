@@ -8,6 +8,14 @@ require_once __DIR__ . '/../src/datos.php';
 
 // Fase 4: convierte los registros de $datos en objetos Libro.
 $libros = [];
+foreach ($datos as $registro) {
+ $autor = $registro['autor'] === null ? 'null' : new Autor($registro['autor']);
+ $categoria = new Categoria($registro['categoria']);
+ $libros[] = new Libro(
+ // Datos del registro, objeto Autor o null y Categoria.
+    $registro['id'], $registro['titulo'], $registro['paginas'], $autor, $categoria, $registro['disponible']
+ );
+}
 
 // Fase 5: realiza aquí las comprobaciones de préstamos e identidad.
 // Añade textos a $mensajes; la vista los mostrará debajo del catálogo.

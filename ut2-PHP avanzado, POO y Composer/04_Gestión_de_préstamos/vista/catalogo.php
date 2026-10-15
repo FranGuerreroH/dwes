@@ -12,7 +12,7 @@ function e(string $texto): string
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Biblioteca en memoria</title>
-    <link rel="stylesheet" href="assets/estilos.css">
+    <link rel="stylesheet" href="../public/assets/estilos.css">
 </head>
 <body>
 <main class="contenedor">
@@ -59,7 +59,7 @@ function e(string $texto): string
                     <?php foreach ($visibles as $libro): ?>
                         <tr>
                             <th scope="row"><?= e($libro->titulo) ?></th>
-                            <td><?= e($libro->autor?->nombre ?? 'Sin autor') ?></td>
+                            <td><?= e($libro->autor?->nombre ?? 'Sin autor') ?></td> <!-- Pone el nombre y si no lo tiene pone sin autor -->
                             <td><?= e($libro->categoria->nombre) ?></td>
                             <td><?= (int) $libro->paginas ?></td>
                             <td><span class="estado <?= $libro->disponible ? 'disponible' : 'prestado' ?>">
