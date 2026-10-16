@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/../src/Autor.php';
@@ -9,18 +10,31 @@ require_once __DIR__ . '/../src/datos.php';
 // Fase 4: convierte los registros de $datos en objetos Libro.
 $libros = [];
 foreach ($datos as $registro) {
- $autor = $registro['autor'] === null ? 'null' : new Autor($registro['autor']);
- $categoria = new Categoria($registro['categoria']);
- $libros[] = new Libro(
- // Datos del registro, objeto Autor o null y Categoria.
-    $registro['id'], $registro['titulo'], $registro['paginas'], $autor, $categoria, $registro['disponible']
- );
+    $autor = $registro['autor'] === null
+        ? null : new Autor($registro['autor']);
+    $categoria = new Categoria($registro['categoria']);
+    $libros[] = new Libro(
+        // Datos del registro, objeto Autor o null y Categoria.
+        $registro['id'],
+        $registro['titulo'],
+        $registro['paginas'],
+        $autor,
+        $categoria,
+        $registro['disponible']
+    );
 }
 
 // Fase 5: realiza aquí las comprobaciones de préstamos e identidad.
 // Añade textos a $mensajes; la vista los mostrará debajo del catálogo.
 // Termina devolviendo Dune para conservar el estado inicial del catálogo.
-$mensajes = [];
+$dune = $libros[0];
+$otro = $libros[2];
+
+$mensajes[] = $dune->ficha();
+$mensajes[] = $otro->ficha();
+
+$dune->prestar();
+$dune->devolver();
 
 // Lectura del formulario facilitada. La búsqueda conserva el texto escrito.
 $entrada = $_GET['q'] ?? '';

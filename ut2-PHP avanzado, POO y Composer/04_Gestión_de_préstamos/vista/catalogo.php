@@ -59,7 +59,7 @@ function e(string $texto): string
                     <?php foreach ($visibles as $libro): ?>
                         <tr>
                             <th scope="row"><?= e($libro->titulo) ?></th>
-                            <td><?= e($libro->autor?->nombre ?? 'Sin autor') ?></td> <!-- Pone el nombre y si no lo tiene pone sin autor -->
+                            <td><?= e($libro->autor?->nombre ?? 'Sin autor') ?></td> <!-- Pone el nombre del autor,de lo contrario debería mostrar sin autor -->
                             <td><?= e($libro->categoria->nombre) ?></td>
                             <td><?= (int) $libro->paginas ?></td>
                             <td><span class="estado <?= $libro->disponible ? 'disponible' : 'prestado' ?>">

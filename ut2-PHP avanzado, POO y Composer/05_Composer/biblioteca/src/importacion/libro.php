@@ -1,5 +1,5 @@
 <?php
-namespace App\Model;
+namespace App\Importacion;
 class Libro
 {
  public function __construct(
