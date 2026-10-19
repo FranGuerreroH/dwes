@@ -15,24 +15,26 @@ final class Libro
         public Categoria $categoria,
         public bool $disponible = true
     ) {
-        $titulo === null || $titulo === '' ? $this->titulo = 'Sin título' : $this->titulo = trim($titulo);
-        $paginas <= 0 ? $this->paginas = 1 : $this->paginas = $paginas;
+        trim($titulo) === '' ? $this->titulo = 'Sin título' : $this->titulo = trim($titulo);
+        $paginas <= 0 ?: $this->paginas = 1;
     }
 
     // Fase 3: título sin espacios en los extremos y valores por defecto si no es válido o las páginas no son positivas. (Hecho arriba)
     // Fase 5: prestar(), devolver() y ficha().
 
-    public function prestar(): void{
+    public function prestar(): void
+    {
         $this->disponible = false;
     }
 
-    public function devolver(): void{
+    public function devolver(): void
+    {
         $this->disponible = true;
     }
 
-    public function ficha(): string {
+    public function ficha(): string
+    {
         $autor = $this->autor?->nombre ?? 'Sin autor';
         return "{$this->titulo} / {$autor} / {$this->categoria->nombre} / {$this->paginas} páginas";
     }
-
 }
