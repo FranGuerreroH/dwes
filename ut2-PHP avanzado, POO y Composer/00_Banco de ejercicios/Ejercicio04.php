@@ -21,5 +21,6 @@ foreach($disponibles as $libro)
 
 leerLibros($disponibles);
 
+//Se conservan las claves originales que en este caso son 1,3 y 5
 
 ?>

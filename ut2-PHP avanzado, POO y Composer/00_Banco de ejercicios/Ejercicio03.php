@@ -8,4 +8,5 @@ $factorExterno = 2;
 $doble = fn(int $n): int => $n * $factorExterno;
 echo $doble(8);
 
+// La variable $factorExterno se captura automaticamente por valor
 ?>

@@ -3,7 +3,7 @@
 // Obtén un nuevo array con textos del tipo "Dune - 412 páginas" a partir de un catálogo. La
 // transformación debe realizarse con array_map.
 
-$catalogo = [
+$libros = [
         [
             "id" => 01,
             "titulo" => 
@@ -79,10 +79,13 @@ $catalogo = [
         ],
     ];
 
-$etiquetas = array_map(fn (array $libro): string => $libro['titulo'] . ' ' . $libro['paginas'] . ' páginas', $catalogo);
+$resultado = array_map(
+    fn($libro) => $libro['titulo'] . ' - ' . $libro['paginas'] . ' páginas',
+    $libros
+);
 
-foreach($etiquetas as $libro)
-    {echo $libro;}
+print_r($resultado);
+
 
 // Mirar por ahí ...$array(tres puntitos$array) que hace algo de desempaquetar.
 

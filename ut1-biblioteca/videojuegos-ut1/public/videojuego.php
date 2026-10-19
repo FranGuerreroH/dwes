@@ -25,7 +25,6 @@ $videojuego = buscarPorId($videojuegos, $juegoId);
     exit;
 }
 
-
 // Prepara las fechas y los valores que necesita la ficha.
 // Cuidado con las cadenas. Al usar format se convierte en cadena.
 $fechaLanzamiento = new  DateTimeImmutable($_GET['fechaLanzamiento'])->format("d/m/Y") ;// De dónde saco la fecha??

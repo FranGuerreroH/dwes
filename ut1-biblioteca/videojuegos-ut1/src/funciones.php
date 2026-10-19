@@ -52,10 +52,6 @@ function buscarPorTexto(array $videojuegos, string $texto): array
     $resultado = [];
     $texto = normalizarTexto($texto);
 
-    if ($texto === '') {
-        return $videojuegos;
-    }
-
     foreach ($videojuegos as $videojuego) {
         $titulo = normalizarTexto($videojuego['titulo']);
         $estudio = normalizarTexto($videojuego['estudio']);
@@ -78,6 +74,12 @@ function ordenarVideojuegos(array $videojuegos, string $criterio): array
         for ($j = 0; $j < $cantidad - 1; $j++) {
             $actual = $videojuegos[$j][$criterio];
             $siguiente = $videojuegos[$j + 1][$criterio];
+
+            // $intercambiar = match($criterio){
+            //     'precio' => $actual['precio'] > $siguiente['precio'],
+            //     'puntuacion' => $actual['puntuacion'] < $siguiente['puntuacion'],
+            //     default => $actual['titulo'] > $siguiente['titulo']
+            // };    Esto equivale a lo de abajo pero con match
 
             if ($actual < $siguiente) {
                 // Aquí no ordenas, debes cambiar los registros:

@@ -6,21 +6,6 @@ Este repositorio contiene actividades realizadas durante el curso, organizados p
 
 ---
 
-## 📁 Estructura del repositorio
-
-### 0_BancoEjercicios
-Colección de ejercicios básicos y avanzados de PHP:
-- Scripts introductorios  
-- Manejo de formularios  
-- Arrays, funciones y sesiones  
-- Módulos reutilizables y ejemplos prácticos
-
-### index.php
-Archivo principal para pruebas rápidas y demostraciones.  
-Se utiliza como punto de entrada para validar ejercicios o ejecutar ejemplos concretos.
-
----
-
 ## 🚀 Objetivo del repositorio
 
 Este repositorio sirve como base para:

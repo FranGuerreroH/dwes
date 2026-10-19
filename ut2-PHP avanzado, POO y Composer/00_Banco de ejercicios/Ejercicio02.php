@@ -6,6 +6,8 @@ $iva = 0.21;
 
 $precioFLibro = function ($numero) use ($iva): float {
     return $numero *(1+ $iva);
-}
+};
+
+echo $precioFLibro(100);
 
 ?>

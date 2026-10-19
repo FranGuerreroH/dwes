@@ -3,7 +3,7 @@
 // Calcula el total de páginas de todos los libros mediante array_reduce. Usa 0 como valor inicial e
 // indica cómo cambia el acumulador en cada paso.
 
-$catalogo = [
+$libros = [
         [
             "id" => 01,
             "titulo" => 
@@ -79,10 +79,14 @@ $catalogo = [
         ],
     ];
 
-// $totalPags = array_reduce(
-//     $catalogo, 
-//     fn ():
-    //Continuará
-// )
+$total = array_reduce(
+    $libros,
+    fn($acumulador, $libro) => $acumulador + $libro['paginas'],
+    0
+);
+
+echo $total;
+
+// El acumulador comienza en 0 y va aumentando: 722, 1030, 1318....
 
 ?>
