@@ -10,7 +10,7 @@ require_once __DIR__ . '/../Compartido/GeneraEtiqueta.php';
 
 abstract class Juego implements Prestable{    
 
-    use generaEtiqueta;
+    use GeneraEtiqueta;
 
     private int $id;
     private string $nombre;
@@ -32,5 +32,45 @@ abstract class Juego implements Prestable{
 
     public function id(): int{return $this->id;}
     public function nombre(): string{return $this->nombre;}
+    public function prestado(): bool{return $this->prestado;}
+    public function dias(): int{return $this->dias;}
 
+    public abstract function plazoMaximo():int;
+
+    public function ficha():string{
+        return $this->etiqueta() . ' · ' . ($this->prestado ? "No Disponible" : 'Disponible') . ' · ' . $this->dias . ' días';
+    }
+
+
+    public function prestar(int $dias): void {
+        if ($this->dias() < 0) {
+            throw new InvalidArgumentException('Los dias no cumplen la condición');
+        }
+        if ($this->prestado() === true || $this->dias() > $this->plazoMaximo()){
+            throw new PrestamoException('El libro no puede ser prestado porque ya está prestado o se excede el plazo máximo');
+        } 
+        $this->prestado = true;
+        $this->dias = $dias;
+    }
+
+    public function renovar(int $diasExtra): void {
+        if ($diasExtra < 0){
+            throw new InvalidArgumentException('Los días extra no cumplen la condición');
+        }
+        if ($this->prestado() === false || $this->dias() + $diasExtra > $this->plazoMaximo()){
+            throw new PrestamoException('El libro no puede ser renovado porque no está prestado o se excede el plazo máximo');
+        }
+        $this->dias = $this->dias() + $diasExtra;
+        $this->prestado = true; //por si acaso
+    }
+
+    public function devolver(): void
+    {
+        if ($this->prestado() === false){
+            throw new PrestamoException('El libro no puede ser devuelto porque no se ha prestado');
+        }
+
+        $this->prestado = false;
+        $this->dias = 0;
+    }
 }
