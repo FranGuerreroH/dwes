@@ -18,7 +18,6 @@ final class Responsable
         if (trim($this->nombre) === '') {
             throw new InvalidArgumentException('El nombre no puede estar vacío.');
         }
-        $this->nombre = $nombre;
     }
 
     public function id(): int
