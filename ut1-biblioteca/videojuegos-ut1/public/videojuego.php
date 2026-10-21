@@ -26,9 +26,11 @@ $videojuego = buscarPorId($videojuegos, $juegoId);
 }
 
 // Prepara las fechas y los valores que necesita la ficha.
-$fechaLanzamiento = new  DateTimeImmutable($_GET['fechaLanzamiento'])->format(d/m/Y) ;// De dónde saco la fecha??
-$hoy = new DateTimeImmutable()->format(d/m/Y);
-$diasTranscurridos = $fechaLanzamiento->diff(DateTimeInterface $hoy); //0? Habrá que calcular algo, no?
+// Cuidado con las cadenas. Al usar format se convierte en cadena.
+$fechaLanzamiento = new  DateTimeImmutable($_GET['fechaLanzamiento'])->format("d/m/Y") ;// De dónde saco la fecha??
+$hoy = new DateTimeImmutable()->format("d/m/Y");
+
+$diasTranscurridos = $fechaLanzamiento->diff($hoy); //0? Habrá que calcular algo, no?
 $finNovedad = null;
 $estado = '';
 
