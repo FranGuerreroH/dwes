@@ -23,6 +23,7 @@ if (isset($_GET['accion'])) {
 
 // INICIO E3
 // TODO E3. Consulta la ficha y prepara el listado, el resumen y las etiquetas.
+
 // FIN E3
 
 require __DIR__ . '/../vista/catalogo.php';
