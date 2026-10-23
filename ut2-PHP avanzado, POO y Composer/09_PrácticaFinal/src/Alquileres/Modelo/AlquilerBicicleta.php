@@ -1,0 +1,21 @@
+<?php
+
+namespace Clase\Alquileres\Modelo;
+
+use Override;
+
+class AlquilerBicicleta extends Alquiler{
+
+ #[Override]
+ public function modalidad(): string
+ {
+    return 'bicicleta';
+ }
+
+ #[Override]
+ public function tarifaDiaria(): int
+ {
+    return 500;
+ }
+    
+}
