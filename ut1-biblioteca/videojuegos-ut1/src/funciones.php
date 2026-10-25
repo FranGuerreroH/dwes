@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 function normalizarTexto(string $texto): string
 {
-    return htmlspecialchars($texto);
+    // Quitamos espacios y ponemos a minúsculas
+    return strtolower(trim($texto));
 }
 
 function buscarPorId(array $videojuegos, int $id): ?array
@@ -25,6 +26,7 @@ function filtrarPorGenero(array $videojuegos, string $genero): array
     $filtrado = [];
     foreach ($videojuegos as $videojuego) {
         // COMPLETAR
+        // Cuidado con mayúsculas y minúsculas
         if ($videojuego['genero'] === $genero) {
             $filtrado[] = $videojuego;
         }
@@ -36,12 +38,13 @@ function filtrarPorPlataforma(array $videojuegos, string $plataforma): array
 {
     // COMPLETAR
     $filtrado = [];
+    // Igual que arriba
     foreach ($videojuegos as $videojuego) {
         if ($videojuego['plataforma'] === $plataforma) {
             $filtrado[] = $videojuego;
         }
     }
-    return $filtrado;    
+    return $filtrado;
 }
 
 function buscarPorTexto(array $videojuegos, string $texto): array
@@ -78,10 +81,11 @@ function ordenarVideojuegos(array $videojuegos, string $criterio): array
             //     default => $actual['titulo'] > $siguiente['titulo']
             // };    Esto equivale a lo de abajo pero con match
 
-            if ( $actual < $siguiente) {
-                $temporal = $actual;
-                $actual = $siguiente;
-                $siguiente = $temporal;
+            if ($actual < $siguiente) {
+                // Aquí no ordenas, debes cambiar los registros:
+                $temporal = $videojuegos[$j];
+                $videojuegos[$j] = $videojuegos[$j + 1];
+                $videojuegos[$j + 1] = $temporal;
             }
         }
     }

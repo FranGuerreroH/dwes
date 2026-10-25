@@ -15,10 +15,13 @@ date_default_timezone_set('Europe/Madrid');
 
 // 3.1. Leer parámetros
 
-$genero = strtolower(trim($_GET['genero'])) ?? 'todos' ;
-$plataforma= strtolower(trim($_GET['plataforma'])) ?? 'todas' ;
-$q= strtolower(trim($busqueda)) ?? '' ;
-$orden= strtolower(trim($_GET['titulo'])) ?? 'titulo' ;
+// Cuidado con los valores por defecto
+// Además, aquí habría que llamar a la función normalizar textos si estuviera bien hecha.
+$genero = strtolower(trim($_GET['genero'] ?? 'todos'));
+$plataforma = strtolower(trim($_GET['plataforma'] ?? 'todas'));
+// El get
+$q = strtolower(trim($_GET['q'] ?? '')) ;
+$orden = strtolower(trim($_GET['titulo'] ?? 'titulo'));
 
 // 3.2. Normalizar y comprobar que los valores recibidos estén dentro de los esperados
 if (isset($_GET['genero']))
@@ -35,29 +38,32 @@ $resultados = $videojuegos;
 
 // Aplica sobre $resultados los filtros, la búsqueda y la ordenación solicitados.
 
-buscarPorId($resultados, $_GET['id']);
-buscarPorTexto($resultados, $q );
-filtrarPorGenero($resultados, $genero);
-filtrarPorPlataforma($resultados, $plataforma);
-ordenarVideojuegos($resultados, $orden);
+// La id se pide en videojuego.php
+// buscarPorId($resultados, $_GET['id']);
+// Habrá que guardar los filtros en algún lado, no?
+$resultados = buscarPorTexto($resultados, $q);
+$resultados = filtrarPorGenero($resultados, $genero);
+$resultados = filtrarPorPlataforma($resultados, $plataforma);
+$resultados = ordenarVideojuegos($resultados, $orden);
 
 
 // 3.5. Ordenar salida
 // Ordena las dos colecciones anteriores manteniendo la relación entre claves y valores.
-
+// Y las colecciones de ventas y plataformas?
 rsort($resultados);
 rsort($videojuegos);
 
 $timestampConsulta = time();
-$fechaConsulta = new DateTimeImmutable("now");
-; // COMPLETAR
+$fechaConsulta = new DateTimeImmutable("now");; // COMPLETAR
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <title>Catálogo de videojuegos</title>
 </head>
+
 <body>
     <h1>Catálogo de videojuegos</h1>
 
@@ -81,7 +87,8 @@ $fechaConsulta = new DateTimeImmutable("now");
 
         <label>
             Buscar:
-            <input type="text" name="q" value="<?= $busqueda ?>">
+            <!-- La variable cómo la has declarado?? -->
+            <input type="text" name="q" value="<?= $q ?>">
         </label>
 
         <label>
@@ -96,12 +103,16 @@ $fechaConsulta = new DateTimeImmutable("now");
         <button type="submit">Aplicar</button>
     </form>
 
-    <p>Resultados: <!-- COMPLETAR --></p>
+    <!-- Si esto es solo contar -->
+    <p>Resultados: <?= count($resultados) ?></p>
 
     <ul>
         <?php foreach ($resultados as $videojuego): ?>
             <li>
                 <!-- Construye aquí el enlace a videojuego.php enviando su id. -->
+                <a href="videojuego.php?id=<?= $videojuego['id'] ?>">
+                    <?= htmlspecialchars($videojuego['titulo']) ?>
+                </a>
                 <?= htmlspecialchars($videojuego['titulo']) ?>
                 · <?= number_format($videojuego['precio'], 2, ',', '.') ?> €
                 · <?= $videojuego['puntuacion'] ?>/10
@@ -125,4 +136,5 @@ $fechaConsulta = new DateTimeImmutable("now");
 
     <p>Consulta generada: <?= htmlspecialchars($fechaConsulta) ?></p>
 </body>
+
 </html>

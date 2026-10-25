@@ -1,7 +1,7 @@
 {
- "autoload": {
- "psr-4": {
- "Clase\\": "src/"
- }
- }
+    "autoload": {
+        "psr-4": {
+            "Clase\\Alquileres": "src/"
+        }
+    }
 }
