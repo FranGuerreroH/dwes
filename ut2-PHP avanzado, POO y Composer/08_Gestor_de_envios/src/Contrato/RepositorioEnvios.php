@@ -1,0 +1,10 @@
+<?php
+namespace App\Contrato;
+
+use App\Modelo\Envio;
+
+interface RepositorioEnvios {
+    public function registrar(Envio $envio): void;
+    public function todos(): array;
+    public function buscar(int $id): ?Envio;
+}
