@@ -1,0 +1,11 @@
+{
+    "name": "dwes/ejercicio61",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "catalogo": "@php public/index.php"
+    }
+}
