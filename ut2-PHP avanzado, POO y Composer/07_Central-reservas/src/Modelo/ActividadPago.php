@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 // TODO M7. Implementa la especialización final de pago y su constructor.
 
-final class ActividadPago extends Actividad{
+final class ActividadPago extends Actividad
+{
     public function __construct(
         int $id,
         string $nombre,
@@ -13,7 +15,7 @@ final class ActividadPago extends Actividad{
         ?Responsable $responsable,
         private readonly int $precioCentimos
     ) {
-        if ($precioCentimos < 0) {
+        if ($precioCentimos <= 0) {
             throw new InvalidArgumentException('El precio no puede ser negativo.');
         }
         parent::__construct($id, $nombre, $plazasTotales, $plazasReservadas, $estado, $responsable);

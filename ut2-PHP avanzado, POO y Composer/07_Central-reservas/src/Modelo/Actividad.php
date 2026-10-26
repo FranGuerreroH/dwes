@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // TODO M6. Implementa la clase abstracta Actividad, sus reglas y las operaciones final.
@@ -15,17 +16,17 @@ abstract class Actividad implements Reservable
         private readonly EstadoActividad $estado,
         private readonly ?Responsable $responsable
 
-    ){
+    ) {
         if ($this->id <= 0) {
             throw new InvalidArgumentException('El id debe ser un entero positivo.');
         }
         if (trim($this->nombre) === '') {
             throw new InvalidArgumentException('El nombre no puede estar vacío.');
         }
-        if ((int)$this->capacidad <= 0) {
+        if ($this->capacidad <= 0) {
             throw new InvalidArgumentException('La capacidad debe ser un entero positivo.');
         }
-        if ($this->ocupadas < 0 && $this->ocupadas > $this->capacidad) {
+        if ($this->ocupadas < 0 || $this->ocupadas > $this->capacidad) {
             throw new InvalidArgumentException('El número de plazas ocupadas no es válido.');
         }
     }
@@ -68,15 +69,16 @@ abstract class Actividad implements Reservable
     public abstract function tipo(): string;
     public abstract function importe(int $cantidad): int;
 
-    public final function reservar(int $cantidad): void {
-        if($cantidad <= 0){
+    public final function reservar(int $cantidad): void
+    {
+        if ($cantidad <= 0) {
             throw new InvalidArgumentException();
         }
 
         if ($this->estado === EstadoActividad::Cerrada) {
             throw new ReservaException('La actividad no está abierta para reservas.');
         }
-        
+
         if ($this->plazasLibres() < $cantidad) {
             throw new PlazasInsuficientesException('No hay suficientes plazas disponibles.');
         }
@@ -84,8 +86,9 @@ abstract class Actividad implements Reservable
         $this->ocupadas += $cantidad;
     }
 
-    public final function cancelar(int $cantidad): void {
-        if($cantidad <= 0){
+    public final function cancelar(int $cantidad): void
+    {
+        if ($cantidad <= 0) {
             throw new InvalidArgumentException('La cantidad indicada no es válida');
         }
 
@@ -95,5 +98,4 @@ abstract class Actividad implements Reservable
 
         $this->ocupadas -= $cantidad;
     }
-
 }
