@@ -1,0 +1,8 @@
+{
+    "name": "dwes/ejercicio58",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
