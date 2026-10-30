@@ -17,7 +17,7 @@ class BibliotecaService
 
     public function agregar(Libro $libro): void
     {
-        $libros[] = $libro;
+        $this->libros[] = $libro;
     }
 
     private static function normalizar(string $texto): string
@@ -53,7 +53,7 @@ class BibliotecaService
                 "genero" => $l->genero(),
                 "tipo" => $l->getTipo(),
                 "unidades" => $l->unidades(),
-                "fechaAlta" => $l->fechaAlta()?->format('Y-m-D') ?? "Sin fecha",
+                "fechaAlta" => $l->fechaAlta()?->format('Y-m-d') ?? "Sin fecha",
                 "destacado" => $l->destacado(),
                 "observaciones" => $l->observaciones(),
                 "costeCentimos" => $l->costeReposicionesCentimos()
