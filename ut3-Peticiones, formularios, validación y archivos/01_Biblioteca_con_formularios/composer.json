@@ -1,0 +1,9 @@
+{
+    "name": "franguerrero/biblioteca",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "FranGuerrero\\Biblioteca\\": "src/"
+        }
+    }
+}
