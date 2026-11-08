@@ -59,12 +59,21 @@ function inspeccionarImagen(array $archivos): array
     if ($r['error'] !== null || $r['archivo'] === null) { return $r; }
     $a = $r['archivo'];
     // COMPLETAR 6. Tamaño, temporal legible y MIME. No mover aquí el archivo.
-    if ($a["size"]>0 && $a["size"]<= 2097152) {
-
-    return ['archivo' => $a, 'error' => null];
-    } else {
-        return ['archivo' => null, 'error' => 'El tamaño de la imagen supera el límite de 2 MB.'];
+    if ($a['size'] < 1 || $a['size'] > 2097152) {
+        return ['archivo' => null, 'error' => 'La imagen debe ocupar entre 1 byte y 2 MB.'];
     }
+    if (!is_file($a['tmp_name']) || !is_readable($a['tmp_name'])) {
+        return ['archivo' => null, 'error' => 'El archivo temporal de la imagen no se puede leer.'];
+    }
+
+    $detector = new finfo(FILEINFO_MIME_TYPE);
+    $mime = $detector->file($a['tmp_name']);
+    if ($mime === false || !array_key_exists($mime, MIME_IMAGENES)) {
+        return ['archivo' => null, 'error' => 'El contenido del archivo no es una imagen admitida.'];
+    }
+
+    $a['extension'] = MIME_IMAGENES[$mime];
+    return ['archivo' => $a, 'error' => null];
 }
 
 // Proporcionado. Recibe una extensión ya obtenida de MIME_IMAGENES.
