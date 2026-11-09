@@ -5,13 +5,37 @@ declare(strict_types=1);
 use App\Contrato\VideojuegoRepository;
 use App\Modelo\Videojuego;
 use App\Servicio\ConsultaVideojuego;
+use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 final class ConsultaVideojuegoTest extends TestCase
 {
-    // COMPLETAR 11. Videojuego ausente con un stub.
+    public function testVideojuegoAusente(): void
+    {
+        $stubVideojuegoRepository = $this->createStub(VideojuegoRepository::class);
+        $stubVideojuegoRepository
+            ->method('buscarPorId')
+            ->willReturn(null);
 
+        $consultaVideojuego = new ConsultaVideojuego($stubVideojuegoRepository);
 
-    // COMPLETAR 12. Consulta única del identificador con un mock.
+        $this->expectException(OutOfBoundsException::class);
+        $consultaVideojuego->obtener(99);
+    }
 
+    public function testConsultaUnaVez(): void
+    {
+        $videojuego = new Videojuego('The Legend of Zelda', 'Nintendo', 20, 'aventura');
+
+        $mockVideojuegoRepository = $this->createMock(VideojuegoRepository::class);
+        $mockVideojuegoRepository
+            ->expects($this->once())
+            ->method('buscarPorId')
+            ->with(7)
+            ->willReturn($videojuego);
+
+        $consultaVideojuego = new ConsultaVideojuego($mockVideojuegoRepository);
+
+        $this->assertSame($videojuego, $consultaVideojuego->obtener(7));
+    }
 }

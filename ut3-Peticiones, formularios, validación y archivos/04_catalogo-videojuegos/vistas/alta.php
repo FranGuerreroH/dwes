@@ -73,7 +73,7 @@ use function App\Soporte\e;
 
         <?php if ($creado->caratula() !== null): ?>
             <img src="caratula.php?nombre=<?= e($creado->caratula()) ?>"
-                 alt="Carátula del videojuego creado" width="180">
+                alt="Carátula del videojuego creado" width="180">
         <?php else: ?>
             <p>Sin carátula</p>
         <?php endif; ?>
