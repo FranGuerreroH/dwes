@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Controlador;
 
 use App\Servicio\Biblioteca;
@@ -28,32 +30,41 @@ final class AltaControlador
                 $resultado = validarLibro($_POST);
                 $errores = $resultado['errores'];
                 $subida = inspeccionarPortada($_FILES);
-                if ($subida['error'] !== null) { $errores['portada'] = $subida['error']; }
+                if ($subida['error'] !== null) {
+                    $errores['portada'] = $subida['error'];
+                }
                 if ($errores === []) {
                     $datos = $resultado['datos'];
                     try {
                         // COMPLETAR 5. Construir $nuevo con los cinco datos validados.
-                        $nuevo = new Libro($datos->titulo(), $datos->autor(), $datos->paginas(),$datos->genero(), $datos->fechaAlta()->format('Y-m-d'));
-                        
+                        $nuevo = new Libro(
+                            $datos['titulo'],
+                            $datos['autor'],
+                            $datos['paginas'],
+                            $datos['genero'],
+                            $datos['fechaAlta']
+                        );
+
 
                         // COMPLETAR 7. Guardar y asociar la portada si hay archivo.
                         // Al terminar sin errores, agregar $nuevo y asignarlo a $creado.
 
-                        if ($subida["archivo"] !== null){
+                        if ($subida["archivo"] !== null) {
                             $archivo = $subida["archivo"];
-                            $destino= prepararDestino($archivo['extension']);
-                        }
-                        if(move_uploaded_file($archivo["tmp_name"], $destino["ruta"]) === false) {
-                            $errores['portada'] ='portada no válida';
-                            $subida = null;
+                            $destino = prepararDestino($archivo['extension']);
+
+                            if (!move_uploaded_file($archivo["tmp_name"], $destino["ruta"])) {
+                                $errores['portada'] = 'portada no válida';
+                                $subida = null;
+                            } else {
+                                $nuevo->cambiarPortada($destino["nombre"]);
+                            }
                         }
 
-                         $nuevo->cambiarPortada( $destino["nombre"]);
-
-                         if ($errores === []) {
-                            $creado = $biblioteca->agregar($nuevo);
-                         }
-                
+                        if ($errores === []) {
+                            $biblioteca->agregar($nuevo);
+                            $creado = $nuevo;
+                        }
                     } catch (InvalidArgumentException) {
                         $errores['general'] = 'No se ha podido crear el libro con esos datos.';
                     } catch (RuntimeException $error) {
