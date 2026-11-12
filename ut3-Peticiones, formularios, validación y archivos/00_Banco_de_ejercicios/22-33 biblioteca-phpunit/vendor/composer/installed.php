@@ -3,7 +3,7 @@
         'name' => 'docencia/biblioteca-ut3',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '543aa6bb8d404319ac9c318623cb5246f64ffeaa',
+        'reference' => '7d275ce60803f229dbfa56b3be110215d078ce14',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'docencia/biblioteca-ut3' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '543aa6bb8d404319ac9c318623cb5246f64ffeaa',
+            'reference' => '7d275ce60803f229dbfa56b3be110215d078ce14',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
