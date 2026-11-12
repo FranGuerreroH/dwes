@@ -56,11 +56,12 @@ $orden = is_string($ordenEntrada)
 // Fase 6.1: normaliza la búsqueda y filtra con array_filter.
 $busqueda = strtolower(trim($entradaBusqueda)); //mb_strtolower(trim($entradaBusqueda), 'UTF-8'); EN CASA NO ME FUNCIONA
 
-$visibles = array_filter($libros, function ($libro) use ($busqueda, $soloDisponibles) {
-    $coincideTitulo = empty($busqueda) || str_contains(strtolower($libro->titulo), $busqueda);
-    $esDisponible = !$soloDisponibles || $libro->disponible;
-    return $coincideTitulo && $esDisponible;
-});
+$visibles = array_filter(
+    $libros,
+    fn(Libro $libro): bool =>
+    str_contains(mb_strtolower($libro->titulo, 'UTF-8'), $busqueda) &&
+        (!$soloDisponibles || $libro->disponible),
+);
 
 // Fase 6.2: ordena $visibles mediante usort y <=>.
 
@@ -74,8 +75,9 @@ usort($visibles, function ($libro1, $libro2) use ($orden) {
 
 // Fase 6.3: resumen del catálogo completo, antes de filtrar.
 // Completa disponibles con array_filter y paginas con array_reduce.
-$resumen = ['total' => count($libros), 'disponibles' => count(array_filter($libros, function ($libro) { 
-    return $libro->disponible; })), 'paginas' => array_reduce($libros, function ($acumulador, $libro) {
+$resumen = ['total' => count($libros), 'disponibles' => count(array_filter($libros, function ($libro) {
+    return $libro->disponible;
+})), 'paginas' => array_reduce($libros, function ($acumulador, $libro) {
     return $acumulador + $libro->paginas;
 }, 0)];
 
@@ -88,7 +90,7 @@ $libro30 = array_find($libros, function ($libro) {
     return $libro->id === 30;
 });
 
-$libro30 ? $mensajes[] = "Título del libro con ID 30: {$libro30->titulo}" : $mensajes[] = "No se encontró el libro con ID 30";
+$mensajes[] = 'Buscar id 30: ' . ($encontrado?->titulo ?? 'Libro no encontrado');
 
 // Fase 6.3: busca los ids 30 y 999 con array_find y añade mensajes.
 
@@ -96,7 +98,7 @@ $libro999 = array_find($libros, function ($libro) {
     return $libro->id === 999;
 });
 
-$libro999 ? $mensajes[] = "Título del libro con ID 999: {$libro999->titulo}" : $mensajes[] = "No se encontró el libro con ID 999";
+$mensajes[] = 'Buscar id 999: ' . ($noEncontrado?->titulo ?? 'Libro no encontrado');
 
 
 require __DIR__ . '/../vista/catalogo.php';

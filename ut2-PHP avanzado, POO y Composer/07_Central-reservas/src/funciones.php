@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 function entrada(array $origen, string $clave, string $defecto = ''): string
@@ -41,23 +42,25 @@ function normalizar(string $texto): string
 function buscarPorId(array $actividades, int $id): ?Actividad
 {
     // TODO F3. Usa array_find con un callback tipado.
-    $actividad = array_find($actividades, function (Actividad $actividad) use ($id): bool {
+    return array_find($actividades, function (Actividad $actividad) use ($id): bool {
         return $actividad->id() === $id;
     });
-    return $actividad? $actividad : null;
-
 }
 
 function filtrarActividades(
-    array $actividades, string $texto, string $tipo,
-    ?EstadoActividad $estado, bool $soloDisponibles
+    array $actividades,
+    string $texto,
+    string $tipo,
+    ?EstadoActividad $estado,
+    bool $soloDisponibles
 ): array {
     // TODO F4. Combina las cuatro condiciones mediante array_filter.
-    return array_filter($actividades, function (Actividad $actividad) use ($texto, $tipo, $estado, $soloDisponibles): bool {
+    return array_values(array_filter($actividades, function (Actividad $actividad) use ($texto, $tipo, $estado, $soloDisponibles): bool {
         if ($texto !== '' && strpos(normalizar($actividad->nombre()), normalizar($texto)) === false) {
             return false;
         }
 
+        // Comparas EstadoActividad con String
         if ($tipo !== 'gratuita' || $tipo !== 'pago') {
             return false;
         }
@@ -71,7 +74,17 @@ function filtrarActividades(
         }
 
         return true;
-    });
+    }));
+
+    // return array_values(array_filter(
+    //     $actividades,
+    //     fn(Actividad $a): bool =>
+    //     str_contains(normalizar($a->nombre()), $busqueda)
+    //         && ($tipo === '' || $a->tipo() === $tipo)
+    //         && ($estado === null || $a->estado() === $estado)
+    //         && (!$soloDisponibles || ($a->estado() === EstadoActividad::Abierta
+    //             && $a->plazasLibres() > 0))
+    // ));
 }
 
 function ordenarActividades(array $actividades, string $orden): array
@@ -104,33 +117,33 @@ function transformarActividades(array $actividades, callable $transformacion): a
 }
 
 function generarEtiquetas(
-    array $actividades, string $prefijo = 'Actividad: '
-): array
-{
+    array $actividades,
+    string $prefijo = 'Actividad: '
+): array {
     // TODO F6. Usa transformarActividades y una closure con use.
     return transformarActividades($actividades, function (Actividad $actividad) use ($prefijo): string {
-                                                        return $actividad->etiqueta($prefijo);});
+        return $actividad->etiqueta($prefijo);
+    });
 }
 
 function resumirActividades(array $actividades): array
 {
     // TODO F7. Calcula las cinco magnitudes con array_reduce.
 
-return array_reduce($actividades, function (array $acumulador, Actividad $actividad): array {
-    $acumulador['cantidad']++;
-    $acumulador['capacidad'] += $actividad->capacidad();
-    $acumulador['ocupadas'] += $actividad->ocupadas();
-    $acumulador['libres'] += $actividad->plazasLibres();
-    $acumulador['importe'] += $actividad->importe($actividad->ocupadas());
-    return $acumulador;
-}, [
-    'cantidad' => 0,
-    'capacidad' => 0,
-    'ocupadas' => 0,
-    'libres' => 0,
-    'importe' => 0
-]);
-
+    return array_reduce($actividades, function (array $acumulador, Actividad $actividad): array {
+        $acumulador['cantidad']++;
+        $acumulador['capacidad'] += $actividad->capacidad();
+        $acumulador['ocupadas'] += $actividad->ocupadas();
+        $acumulador['libres'] += $actividad->plazasLibres();
+        $acumulador['importe'] += $actividad->importe($actividad->ocupadas());
+        return $acumulador;
+    }, [
+        'cantidad' => 0,
+        'capacidad' => 0,
+        'ocupadas' => 0,
+        'libres' => 0,
+        'importe' => 0
+    ]);
 }
 
 function e(string $texto): string

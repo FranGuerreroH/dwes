@@ -21,11 +21,8 @@ final class CursoPresencial extends Curso
         if ($this->materialesCentimos < 0) {
             throw new InvalidArgumentException('No se permite un valor negativo');
         }
-        if ($this->ocupadas()> $this->capacidad()) {
-            throw new InvalidArgumentException("No existe capacidad para esa cantidad");
-        }
-        parent::__construct($id, trim($nombre), $capacidad, $ocupadas, $estado, $precioBaseCentimos);
-
+        // Ya se hace en el padre
+        parent::__construct($id, $nombre, $capacidad, $ocupadas, $estado, $precioBaseCentimos);
     }
 
     public function tipo(): string

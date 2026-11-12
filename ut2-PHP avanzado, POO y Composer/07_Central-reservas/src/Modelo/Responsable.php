@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 // TODO M4. Implementa Responsable final, sus propiedades readonly y el trait.
@@ -8,9 +9,9 @@ final class Responsable
     use GeneraEtiqueta;
 
     public function __construct(
-        private readonly int $id,
-        private readonly string $nombre
-        
+        public readonly int $id,
+        public readonly string $nombre
+
     ) {
         if ($this->id <= 0) {
             throw new InvalidArgumentException('El id debe ser un entero positivo.');
@@ -29,6 +30,4 @@ final class Responsable
     {
         return $this->nombre;
     }
-    
-
 }

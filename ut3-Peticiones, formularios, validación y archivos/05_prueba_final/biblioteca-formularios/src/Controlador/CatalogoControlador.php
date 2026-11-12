@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Controlador;
 
 use App\Servicio\Biblioteca;
@@ -18,11 +20,11 @@ final class CatalogoControlador
         // COMPLETAR 2. Validar $_GET y consultar solo si no hay errores.
 
         $devuelto = validarFiltros($_GET);
-        $filtros []= ['q' => $devuelto['q'], 'genero' => $devuelto['genero']];
+        $filtros = ['q' => $devuelto['valores']['q'], 'genero' => $devuelto['valores']['genero']];
         $errores = $devuelto['errores'];
 
-        if ($errores === []){
-           $libros = $biblioteca->filtrar($filtros['q'], $filtros['genero']);
+        if ($errores === []) {
+            $libros = $biblioteca->filtrar($filtros['q'], $filtros['genero']);
         }
 
 
