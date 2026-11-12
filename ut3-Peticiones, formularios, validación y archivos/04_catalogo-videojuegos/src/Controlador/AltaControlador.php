@@ -50,7 +50,7 @@ final class AltaControlador
                             $datos['estudio'],
                             $datos['horas'],
                             $datos['genero'],
-                            $datos['fecha_lanzamiento']
+                            $datos['fechaLanzamiento']
                         );
 
                         // COMPLETAR 5. Guardar y asociar la carátula si hay archivo.
@@ -68,8 +68,10 @@ final class AltaControlador
                             }                            
                         }
 
-                        $this->catalogo->agregar($nuevo);
-                        $creado = $nuevo;
+                        if ($errores === []) {
+                            $this->catalogo->agregar($nuevo);
+                            $creado = $nuevo;
+                        }
                     } catch (InvalidArgumentException) {
                         $errores['general'] = 'No se ha podido crear el videojuego con esos datos.';
                     } catch (RuntimeException $error) {

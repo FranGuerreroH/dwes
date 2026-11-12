@@ -39,9 +39,9 @@ use function App\Soporte\e;
             <label for="genero">Género:</label>
             <input type="text" name="genero" id="genero" value="<?= e($datos['genero'] ?? '') ?>">
             <br>
-            <label for="fecha_lanzamiento">Fecha de lanzamiento:</label>
-            <input type="date" name="fecha_lanzamiento" id="fecha_lanzamiento"
-                   value="<?= e($datos['fecha_lanzamiento'] ?? '') ?>">
+            <label for="fechaLanzamiento">Fecha de lanzamiento:</label>
+            <input type="date" name="fechaLanzamiento" id="fechaLanzamiento"
+                   value="<?= e($datos['fechaLanzamiento'] ?? '') ?>">
             <br>
             <label for="caratula">Carátula (opcional):</label>
             <input type="file" name="caratula" id="caratula">
