@@ -1,47 +1,57 @@
 <?php
 
 use App\Model\Libro;
+use App\Model\LibroNoDisponibleException;
+use InvalidArgumentException;
 
-class LibroTest extends PHPUnit\Framework\TestCase {
-    public function testConservaTitulo(): void{
-        $libro = new Libro ("Dune", "Frank Herbert", 412);
-        $this->assertSame("Dune", $libro->Titulo());
+class LibroTest extends PHPUnit\Framework\TestCase
+{
+    protected Libro $libro;
+
+    protected function setUp(): void
+    {
+        $this->libro = new Libro('Dune', 'Frank Herbert', 412);
     }
 
-    public function testDisponible(): void{
-        $libro = new Libro ("Dune", "Frank Herbert", 412);
-        $libro->prestar();
-        $this->assertSame(false, $libro->estaDisponible());
+    public function testLibroNuevoEstaDisponible(): void
+    {
+        $this->assertTrue($this->libro->estaDisponible());
     }
 
-    public function testPaginas(): void{
-        $libro = new Libro ("Dune", "Frank Herbert", 412);
-        $this->assertSame(412, $libro->paginas());
-        $this->assertEquals(412, $libro->paginas());
+    public function testLibroDejaDeEstarDisponibleAlPrestarlo(): void
+    {
+        $this->libro->prestar();
+
+        $this->assertFalse($this->libro->estaDisponible());
     }
 
-    public function testConservaTituloSolaris(): void{
-        $libro = new Libro ("Dune", "Frank Herbert", 412);
-        $this->assertSame("Solaris", $libro->Titulo());
+    public function testConservaTitulo(): void
+    {
+        $this->assertSame('Dune', $this->libro->titulo());
     }
 
-    public function testPrestarDosVecesLanzaExcepcion(): void {
-        $libro = new Libro("Dune", "Frank Herbert", 412);
-        $libro->prestar();
-        $this->expectException(App\Model\LibroNoDisponibleException::class);
-        $libro->prestar(); 
+    public function testPaginas(): void
+    {
+        $this->assertSame(412, $this->libro->paginas());
     }
 
-    public function testLibroVacío(): void {
-        $libro = new Libro("", "Frank Herbert", 412);
+    public function testPrestarDosVecesLanzaExcepcion(): void
+    {
+        $this->libro->prestar();
+
+        $this->expectException(LibroNoDisponibleException::class);
+        $this->libro->prestar();
+    }
+
+    public function testTituloVacioLanzaExcepcion(): void
+    {
         $this->expectException(InvalidArgumentException::class);
-        $libro->Titulo();
+        new Libro('', 'Frank Herbert', 412);
     }
 
-    public function testPaginasNegativas(): void {
-        $libro = new Libro("Dune", "Frank Herbert", -412);  
+    public function testPaginasNegativasLanzanExcepcion(): void
+    {
         $this->expectException(InvalidArgumentException::class);
-        $libro->paginas();
+        new Libro('Dune', 'Frank Herbert', -412);
     }
-
 }

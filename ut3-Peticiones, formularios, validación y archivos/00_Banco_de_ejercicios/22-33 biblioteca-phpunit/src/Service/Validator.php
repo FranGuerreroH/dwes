@@ -8,4 +8,12 @@ final class Validator
     {
         return trim($valor) === '' ? $mensaje : null;
     }
+
+    public function validarPortada(int $tamano, string $mime): ?string
+    {
+        return $tamano < 1 || $tamano > 2 * 1024 * 1024
+            || !in_array($mime, ['image/jpeg', 'image/png', 'image/webp'], true)
+            ? 'La portada debe ser JPEG, PNG o WebP y no superar 2 MiB.'
+            : null;
+    }
 }
