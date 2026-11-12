@@ -34,7 +34,6 @@ final class BibliotecaServiceTest extends TestCase
     {
         $repositorio = $this->createStub(LibroRepository::class);
         $repositorio->method('buscarPorId')->willReturn(null);
-        // El stub controla la respuesta de la consulta que hace el servicio.
         $servicio = new BibliotecaService($repositorio);
 
         $this->expectException(OutOfBoundsException::class);

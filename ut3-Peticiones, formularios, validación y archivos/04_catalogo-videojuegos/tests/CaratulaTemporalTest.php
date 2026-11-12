@@ -14,10 +14,11 @@ final class CaratulaTemporalTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->temporal = tempnam(sys_get_temp_dir(), "ut3_");
-        if ($this->temporal === false) {
+        $temporal = tempnam(sys_get_temp_dir(), "ut3_");
+        if ($temporal === false) {
             throw new RuntimeException('No se pudo crear un archivo temporal.');
         }
+        $this->temporal = $temporal;
         file_put_contents($this->temporal, 'Contenido de prueba');
     }
 
@@ -26,6 +27,9 @@ final class CaratulaTemporalTest extends TestCase
     {
         if ($this->temporal !== null && is_file($this->temporal)) {
             unlink($this->temporal);
+        }
+        if ($this->temporal !== null) {
+            $this->assertFileDoesNotExist($this->temporal);
         }
     }
 
@@ -43,5 +47,13 @@ final class CaratulaTemporalTest extends TestCase
                 'tmp_name' => $this->temporal,
             ],
         ];
+    }
+
+    public function testRechazaArchivoQueNoEsUnaCaratula(): void
+    {
+        $resultado = inspeccionarCaratula($this->entradaArchivo());
+
+        $this->assertNull($resultado['archivo']);
+        $this->assertNotNull($resultado['error']);
     }
 }

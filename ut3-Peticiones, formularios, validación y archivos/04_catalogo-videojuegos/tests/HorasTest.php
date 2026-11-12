@@ -13,34 +13,43 @@ final class HorasTest extends TestCase
 
     #[DataProvider("casosHoras")]
 
-    public function testValidarHoras(array $datos, array $erroresEsperados): void
+    public function testValidarHoras(string $horas, bool $valido): void
     {
+        $datos = self::datosValidos();
+        $datos['horas'] = $horas;
         $resultado = validarVideojuego($datos);
-        $this->assertSame($erroresEsperados, $resultado['errores']);
+
+        $this->assertSame(!$valido, array_key_exists('horas', $resultado['errores']));
+        if ($valido) {
+            $this->assertSame((int) $horas, $resultado['datos']['horas']);
+            $this->assertIsInt($resultado['datos']['horas']);
+        } else {
+            $this->assertNull($resultado['datos']);
+        }
     }
 
     public static function casosHoras(): array
     {
         return [
-            'horas válidas 1' => [array_merge(self::datosValidos(), ['horas' => '1']), []],            
-            'horas válidas 300' => [array_merge(self::datosValidos(), ['horas' => '300']), []],
-            'horas inválidas 0' => [array_merge(self::datosValidos(), ['horas' => '0']), ['horas' => 'Horas debe ser un número entre 1 y 300.']],
-            'horas inválidas 301' => [array_merge(self::datosValidos(), ['horas' => '301']), ['horas' => 'Horas debe ser un número entre 1 y 300.']],
-            'horas inválidas 12abc' => [array_merge(self::datosValidos(), ['horas' => '12abc']), ['horas' => 'Horas debe ser un número entre 1 y 300.']],
+            'horas válidas 1' => ['1', true],
+            'horas válidas 300' => ['300', true],
+            'horas inválidas 0' => ['0', false],
+            'horas inválidas 301' => ['301', false],
+            'horas inválidas 12abc' => ['12abc', false],
         ];
     }
 
-public function testValidarCopia(): void
+    public function testValidarCopia(): void
     {
         $copia = self::datosValidos();
         $copia['horas'] = '0';
         $resultado = validarVideojuego($copia);
-        $this->assertSame(['horas' => 'Horas debe ser un número entre 1 y 300.'], $resultado['errores']);
+        $this->assertSame(['horas' => 'Introduce un entero entre 1 y 300.'], $resultado['errores']);
         $this->assertNull($resultado['datos']);
     }    
 
     // Proporcionado. Datos válidos sobre los que varías solo horas.
-    private function datosValidos(): array
+    private static function datosValidos(): array
     {
         return [
             'titulo' => 'Islas de cristal',

@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Contrato\VideojuegoRepository;
 use App\Modelo\Videojuego;
 use App\Servicio\ConsultaVideojuego;
-use OutOfBoundsException;
 use PHPUnit\Framework\TestCase;
 
 final class ConsultaVideojuegoTest extends TestCase
