@@ -30,33 +30,33 @@ use function App\Soporte\e;
             <?php endif; ?>
 
             <!-- COMPLETAR 2. Formulario POST multipart con controles HTML estáticos. -->
-             <form action="alta.php" method="post" enctype="multipart/form-data">
-                <label for="titulo" >Título</label>
+            <form action="alta.php" method="post" enctype="multipart/form-data">
+                <label for="titulo">Título</label>
                 <input type="text" name="titulo" id="titulo" maxlength="120" required>
 
                 <label for="director">Director</label>
                 <input type="text" name="director" id="director" maxlength="100" required>
 
-                <label for="duración">Duración</label>
-                <input type="text" name="duración" id="duración" >
+                <label for="duracion">Duración</label>
+                <input type="text" name="duracion" id="duracion">
 
                 <label for="genero">Género</label>
                 <select name="genero" id="genero">
-                <option value="">Selecciona un género</option>
-                <option value="ciencia">Ciencia</option>
-                <option value="fantasia">Fantasía</option>
-                <option value="terror">Terror</option>
+                    <option value="">Selecciona un género</option>
+                    <option value="ciencia">Ciencia</option>
+                    <option value="fantasia">Fantasía</option>
+                    <option value="terror">Terror</option>
                 </select>
 
-                <label for="fechaEstreno">Fecha de estreno</label>
-                <input type="date" name="fechaEstreno" id="fechaEstreno" >
+                <label for="fechaEstreno">Fecha de estreno YYYY-MM-DD</label>
+                <input type="text" name="fechaEstreno" id="fechaEstreno">
 
                 <label for="cartel">Cartel</label>
                 <input type="file" name="cartel" id="cartel" accept="image/jpeg,image/png,image/webp">
 
                 <button type="submit">Guardar película</button>
 
-             </form>
+            </form>
 
         <?php else: ?>
             <!-- Confirmación proporcionada. Solo aparece cuando asignas $creado. -->
@@ -84,7 +84,7 @@ use function App\Soporte\e;
 
                 <?php if ($creado->cartel() !== null): ?>
                     <img src="cartel.php?nombre=<?= e($creado->cartel()) ?>"
-                         alt="Cartel de la película creada" width="180">
+                        alt="Cartel de la película creada" width="180">
                 <?php else: ?>
                     <p>Sin cartel</p>
                 <?php endif; ?>

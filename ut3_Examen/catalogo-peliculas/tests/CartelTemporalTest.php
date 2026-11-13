@@ -11,19 +11,31 @@ final class CartelTemporalTest extends TestCase
     private ?string $temporal = null;
 
     // COMPLETAR 10. setUp, prueba de rechazo y tearDown.
-    protected function setUp ():void
+    protected function setUp(): void
     {
-        self::$temporal = tempnam(sys_get_temp_dir(), "ut3_");
-        if (!self::$temporal){
+        $this->temporal = tempnam(sys_get_temp_dir(), "ut3_");
+        if ($this->temporal) {
             throw new RuntimeException();
         }
-        self::$temporal = $this->temporal;
-        file_put_contents(self::$temporal, 'contenido');        
+        $this->temporal;
+        file_put_contents($this->temporal, 'contenido');
     }
 
-    protected function tearDown (): void {
-        if (self::$temporal !== null && !is_file(self::$temporal)){
-            unlink(self::$temporal);
+    public function testRechazaTextoComoCartel(): void
+    {
+        $resultado = inspeccionarCartel($this->entradaArchivo());
+
+        $this->assertNull($resultado['archivo']);
+        $this->assertNotNull($resultado['error']);
+    }
+    protected function tearDown(): void
+    {
+        if ($this->temporal !== null && is_file($this->temporal)) {
+            unlink($this->temporal);
+        }
+
+        if ($this->temporal !== null) {
+            $this->assertFileDoesNotExist($this->temporal);
         }
     }
 

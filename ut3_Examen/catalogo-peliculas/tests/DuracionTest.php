@@ -12,7 +12,8 @@ final class DuracionTest extends TestCase
     // COMPLETAR 9. Proveedor y prueba de las cinco duraciones.
     #[DataProvider("duraciones")]
 
-    private function duraciones (): array {
+    private function duraciones(): array
+    {
         return [
             'caso válido 1' => ["1", true],
             'caso válido 2' => ["300", true],
@@ -22,11 +23,22 @@ final class DuracionTest extends TestCase
         ];
     }
 
-    private function comprobarResultados(){
-        $datos = $this->datosValidos();
-        $validado = validarPelicula($datos);
-        // Se me ha olvidado cómo se comprobaba en un dataprovider
-        
+    #[DataProvider('duraciones')]
+    public function testDuracion(string $entrada, bool $valida): void
+    {
+        $post = $this->datosValidos();
+        $post['duracion'] = $entrada;
+
+        $resultado = validarPelicula($post);
+
+        $this->assertSame($valida, !isset($resultado['errores']['duracion']));
+
+        if ($valida) {
+            $this->assertIsInt($resultado['datos']['duracion']);
+            $this->assertSame((int) $entrada, $resultado['datos']['duracion']);
+        } else {
+            $this->assertNull($resultado['datos']);
+        }
     }
 
 

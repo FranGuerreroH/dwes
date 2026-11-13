@@ -16,9 +16,7 @@ use function App\Soporte\prepararDestino;
 
 final class AltaControlador
 {
-    public function __construct(private Catalogo $catalogo)
-    {
-    }
+    public function __construct(private Catalogo $catalogo) {}
 
     public function mostrar(): void
     {
@@ -45,7 +43,7 @@ final class AltaControlador
                     try {
                         // COMPLETAR 3. Construir $nuevo con los cinco datos validados.
 
-                        $nuevo = new Pelicula($datos['titulo'] , $datos['director'], $datos['duracion'], $datos['genero'], $datos['fechaEstreno']);
+                        $nuevo = new Pelicula($datos['titulo'], $datos['director'], $datos['duracion'], $datos['genero'], $datos['fechaEstreno']);
 
                         // COMPLETAR 5. Guardar y asociar el cartel si hay archivo.
                         // Al terminar sin errores, agregar $nuevo y asignarlo a $creado.
@@ -53,15 +51,17 @@ final class AltaControlador
                         if ($subida["archivo"] !== null) {
                             $archivo = $subida["archivo"];
                             $destino = prepararDestino($archivo["extension"]);
-                            if(move_uploaded_file($archivo["tmp_name"], $destino["ruta"]) === false){
+                            if (!move_uploaded_file($archivo["tmp_name"], $destino["ruta"])) {
                                 $errores['cartel'] = 'No se ha podido mover';
-                                exit;
+                            } else {
+                                $nuevo->cambiarCartel($destino["nombre"]);
                             }
-                            $nuevo->cambiarCartel($destino["nombre"]);
-                        }          
-                        
-                        $catalogo->agregar($nuevo);
+                        }
 
+                        if ($errores === []) {
+                            $catalogo->agregar($nuevo);
+                            $creado = $nuevo;
+                        }
                     } catch (InvalidArgumentException) {
                         $errores['general'] = 'No se ha podido crear la película con esos datos.';
                     } catch (RuntimeException $error) {
