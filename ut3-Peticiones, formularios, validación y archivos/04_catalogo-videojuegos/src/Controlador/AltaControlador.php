@@ -16,9 +16,7 @@ use function App\Soporte\prepararDestino;
 
 final class AltaControlador
 {
-    public function __construct(private Catalogo $catalogo)
-    {
-    }
+    public function __construct(private Catalogo $catalogo) {}
 
     public function mostrar(): void
     {
@@ -57,26 +55,21 @@ final class AltaControlador
                         // Al terminar sin errores, agregar $nuevo y asignarlo a $creado.
                         if ($subida['archivo'] !== null) {
                             $archivo = $subida['archivo'];
-// llama a prepararDestino($archivo["extension"]). Está en src/Soporte/archivos.php y devuelve nombre, el
-// nombre generado con extensión, y ruta, la ruta física de almacenamiento. El directorio y el destino libre
-// se comprueban en esa función.
+                            // llama a prepararDestino($archivo["extension"]). Está en src/Soporte/archivos.php y devuelve nombre, el
+                            // nombre generado con extensión, y ruta, la ruta física de almacenamiento. El directorio y el destino libre
+                            // se comprueban en esa función.
                             $destino = prepararDestino($archivo['extension']);
                             if (move_uploaded_file($archivo['tmp_name'], $destino['ruta']) === false) {
                                 $errores['caratula'] = 'No se ha podido mover la carátula a su destino.';
                             } else {
                                 $nuevo->cambiarCaratula($destino['nombre']);
-                            }                            
+                            }
                         }
 
                         if ($errores === []) {
                             $this->catalogo->agregar($nuevo);
                             $creado = $nuevo;
                         }
-                    } catch (InvalidArgumentException) {
-                        $errores['general'] = 'No se ha podido crear el videojuego con esos datos.';
-                    } catch (RuntimeException $error) {
-                        $errores['caratula'] = $error->getMessage();
-
                     } catch (InvalidArgumentException) {
                         $errores['general'] = 'No se ha podido crear el videojuego con esos datos.';
                     } catch (RuntimeException $error) {

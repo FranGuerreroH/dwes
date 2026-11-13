@@ -26,28 +26,40 @@ use function App\Soporte\e;
 
         <!-- COMPLETAR 2. Formulario POST multipart con controles HTML estáticos. -->
 
-        <form method="POST" enctype="multipart/form-data" action="alta.php">
-            <label for="titulo">Título:</label>
-            <input type="text" name="titulo" id="titulo" value="<?= e($datos['titulo'] ?? '') ?>" required>
-            <br>
-            <label for="estudio">Estudio:</label>
-            <input type="text" name="estudio" id="estudio" value="<?= e($datos['estudio'] ?? '') ?>" required>
-            <br>
-            <label for="horas">Horas de juego:</label>
-            <input type="number" name="horas" id="horas" value="<?= e($datos['horas'] ?? '') ?>">
-            <br>
-            <label for="genero">Género:</label>
-            <input type="text" name="genero" id="genero" value="<?= e($datos['genero'] ?? '') ?>">
-            <br>
-            <label for="fechaLanzamiento">Fecha de lanzamiento:</label>
-            <input type="date" name="fechaLanzamiento" id="fechaLanzamiento"
-                   value="<?= e($datos['fechaLanzamiento'] ?? '') ?>">
-            <br>
-            <label for="caratula">Carátula (opcional):</label>
-            <input type="file" name="caratula" id="caratula">
-            <br>
-            <button type="submit">Dar de alta</button>
-
+        <form method="post" action="alta.php" enctype="multipart/form-data">
+            <p>
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo">
+            </p>
+            <p>
+                <label for="estudio">Estudio</label>
+                <input type="text" id="estudio" name="estudio">
+            </p>
+            <p>
+                <label for="horas">Horas de juego</label>
+                <input type="text" id="horas" name="horas">
+            </p>
+            <p>
+                <label for="genero">Género</label>
+                <select id="genero" name="genero">
+                    <option value="">Elige un género</option>
+                    <option value="aventura">Aventura</option>
+                    <option value="estrategia">Estrategia</option>
+                    <option value="rol">Rol</option>
+                </select>
+            </p>
+            <p>
+                <label for="fechaLanzamiento">Fecha de lanzamiento YYYY-MM-DD</label>
+                <input type="text" id="fechaLanzamiento" name="fechaLanzamiento">
+            </p>
+            <p>
+                <label for="caratula">Carátula opcional</label>
+                <input type="file" id="caratula" name="caratula"
+                    accept="image/jpeg,image/png,image/webp">
+            </p>
+            <button type="submit">Guardar videojuego</button>
+        </form>
+        
     <?php else: ?>
         <!-- Confirmación proporcionada. Solo aparece cuando asignas $creado. -->
         <h2>Videojuego creado</h2>

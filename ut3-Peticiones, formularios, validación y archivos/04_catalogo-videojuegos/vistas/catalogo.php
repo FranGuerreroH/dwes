@@ -26,12 +26,17 @@ use function App\Soporte\e;
 
     <!-- COMPLETAR 1. Formulario GET con controles HTML estáticos. -->
 
-    <form method="GET">
+    <form method="get" action="index.php">
         <label for="q">Título:</label>
-        <input type="text" name="q" id="q" value="<?= e($filtros['titulo'] ?? '') ?>">
+        <input type="text" name="q" id="q">
 
-        <label for="genero">Género:</label>
-        <input type="text" name="genero" id="genero" value="<?= e($filtros['genero'] ?? '') ?>">
+        <label for="genero">Género</label>
+        <select id="genero" name="genero">
+            <option value="">Todos</option>
+            <option value="aventura">Aventura</option>
+            <option value="estrategia">Estrategia</option>
+            <option value="rol">Rol</option>
+        </select>
 
         <button type="submit">Buscar</button>
     </form>
