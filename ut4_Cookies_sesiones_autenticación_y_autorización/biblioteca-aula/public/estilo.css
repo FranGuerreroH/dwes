@@ -1,11 +1,81 @@
-:root { font: 1rem/1.5 system-ui, sans-serif; }
-body { max-width: 52rem; margin: 0 auto; padding: 1.25rem; color: #1b2830; background: #fff; }
-header { border-bottom: 2px solid #167c80; padding-bottom: 1rem; }
-nav { display: flex; align-items: center; flex-wrap: wrap; gap: .35rem 1rem; }
-a { color: #125e66; }
-form { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
-label { font-weight: 600; }
-button, input, select { font: inherit; padding: .28rem .55rem; }
-.libros { padding: 0; list-style: none; }
-.libros li { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #9caeb0; padding: .65rem 0; }
-.aviso { border-left: 4px solid #167c80; padding: .35rem .75rem; }
+:root {
+    font: 1rem/1.5 system-ui, sans-serif;
+}
+
+body {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 1.25rem;
+    color: #1b2830;
+    background: #fff;
+}
+
+header {
+    border-bottom: 2px solid #167c80;
+    padding-bottom: 1rem;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .35rem 1rem;
+}
+
+a {
+    color: #125e66;
+}
+
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    align-items: center;
+}
+
+label {
+    font-weight: 600;
+}
+
+button,
+input,
+select {
+    font: inherit;
+    padding: .28rem .55rem;
+}
+
+.libros {
+    padding: 0;
+    list-style: none;
+}
+
+.libros li {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #9caeb0;
+    padding: .65rem 0;
+}
+
+.aviso {
+    border-left: 4px solid #167c80;
+    padding: .35rem .75rem;
+}
+
+body.oscuro {
+    color: #fff;
+    background: #1b2830;
+}
+
+body.oscuro a {
+    color:#a7eef2;
+}
+
+body.compacto {
+    padding-block: 1.25rem;
+}
+
+body.ampliado {
+    padding-block: 2.5rem;
+}
