@@ -3,4 +3,3 @@ declare(strict_types=1);
 
 $app = require dirname(__DIR__) . '/config/inicio.php';
 (new App\Controlador\PreferenciasControlador($app))->guardar();
-(new App\Controlador\PreferenciasControladorEspaciado($app))->guardar();

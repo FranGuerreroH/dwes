@@ -1,7 +1,7 @@
 <?php use function App\Soporte\e; ?>
 <h2>Catálogo</h2>
 
-<form method="post" action="">
+<form method="post" action="preferencias.php">
     <label for="espaciado">Espaciado</label>
     <select id="espaciado" name="espaciado">
         <option value="compacto" <?= $espaciado === 'compacto' ? 'selected' : '' ?>>Compacto</option>
@@ -18,7 +18,6 @@
     </select>
     <button type="submit">Guardar Tema</button>
 </form>
-<br>
 
 <form method="get" action="index.php">
     <label for="q">Buscar por título</label>

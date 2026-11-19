@@ -3,7 +3,7 @@
         'name' => 'docencia/biblioteca-aula-ut4',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ba46a9f8edbc85e2f0306fb17b579de5ffece033',
+        'reference' => 'bc600f4aff3f63dfe424c9820af09c79eae8078a',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'docencia/biblioteca-aula-ut4' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ba46a9f8edbc85e2f0306fb17b579de5ffece033',
+            'reference' => 'bc600f4aff3f63dfe424c9820af09c79eae8078a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -72,10 +72,20 @@ body.oscuro a {
     color:#a7eef2;
 }
 
-body.compacto {
-    padding-block: 1.25rem;
+body.compacto .libros li {
+    padding: .35rem 0;
+    gap: .5rem;
 }
 
-body.ampliado {
-    padding-block: 2.5rem;
+body.ampliado .libros li {
+    padding: 1.1rem 0;
+    gap: 1rem;
+}
+
+body.ampliado form {
+    gap: .9rem;
+}
+
+form + form {
+    margin-top: .75rem;
 }
