@@ -19,6 +19,7 @@ final class CatalogoControlador extends Controlador
                 static fn ($libro) => stripos($libro->titulo, $q) !== false
             );
         }
-        $this->vista('catalogo', compact('libros', 'q'));
+        $favoritos = $_SESSION['favoritos'] ?? [];
+        $this->vista('catalogo', compact('libros', 'q', 'favoritos'));
     }
 }
