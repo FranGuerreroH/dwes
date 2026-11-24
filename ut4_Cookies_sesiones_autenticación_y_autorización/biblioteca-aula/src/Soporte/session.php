@@ -15,3 +15,9 @@ function iniciarSesion(): void
         'cookie_samesite' => 'Lax'
     ]);
 }
+
+function flash(){
+    $aviso = $_SESSION['flash'] ?? null;
+    unset($_SESSION['flash']);
+    return $aviso;
+}

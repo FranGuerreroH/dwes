@@ -11,12 +11,14 @@ final class FavoritosControlador extends Controlador
 {
     public function cambiar():void{
 
-        soloMetodos([$_POST]);
+        soloMetodos(['POST']);
 
-        $entrada = $_POST['id'] ?? '';
+        $entrada = $_POST['id'] ?? null;
         // Validar entrada
-        $id = is_string($entrada);
-        if(!$id){
+        $id = is_string($entrada) ?
+              filter_var($entrada, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) 
+              : false;
+        if($id === false){
             http_response_code(400);
             exit;
         }
@@ -26,11 +28,17 @@ final class FavoritosControlador extends Controlador
             exit;
         }
 
+
         $favoritos = $_SESSION['favoritos'] ?? [];
-        if (in_array($id, $favoritos, true)) {
+        if (!in_array($id, $favoritos, true)) {
             $favoritos[] = $id;
-        }
-        
+            $_SESSION['flash'] = 'Libro añadido a favoritos';
+        } else {
+            $key = array_search($id, $favoritos, true);
+            unset($favoritos[$key]);
+            $_SESSION['flash'] = 'Libro eliminado de favoritos';
+        }            
+            
         $_SESSION['favoritos'] = $favoritos;
         redirigir('index.php');
     }

@@ -10,6 +10,7 @@ abstract class Controlador
     protected function vista(string $nombre, array $datos = []): void
     {
         extract($datos, EXTR_SKIP);
+        $aviso = $_SERVER['REQUEST_METHOD'] === 'GET' ? \App\Soporte\flash() : null;
         $tema = ($_COOKIE['tema'] ?? null) === 'oscuro' ? 'oscuro' : 'claro';
         $espaciado = ($_COOKIE['espaciado'] ?? null) === 'ampliado' ? 'ampliado' : 'compacto';
         require dirname(__DIR__, 2) . '/vistas/cabecera.php';
