@@ -3,7 +3,10 @@
     "description": "Biblioteca de aula de DWES",
     "require": { "php": ">=8.1" },
     "autoload": {
-        "psr-4": { "App\\": "src/" },
+        "psr-4": {
+            "App\\": "src/",
+            "App\\Service\\": "service/"
+        },
         "files": ["src/Soporte/html.php",
                   "src/Soporte/session.php"
                 ]

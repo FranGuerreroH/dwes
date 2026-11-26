@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "nombre": "dasfdafgasgasg",
+        "correo": "cos123123a@cosa.com",
+        "passwordHash": "$2y$12$QuMdge4vIHPhC5aoIkDF9.4emF3H3H3APTKV23gQOczxq5kB6nyJa",
+        "rol": "ROLE_USER"
+    },
+    {
+        "id": 2,
+        "nombre": "HoracioHemerecioFerm\u00edn",
+        "correo": "bobobobobobo@donpatch.es",
+        "passwordHash": "$2y$12$TVnMsNauXvJ96ecJQhMEoOha4hNzM4S4AgH5DSEjvPP4a55B9z3wm",
+        "rol": "ROLE_USER"
+    }
+]
