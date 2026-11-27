@@ -14,4 +14,4 @@ $usuarios = new JsonUsuarioRepository(new ArchivoJson(dirname(__DIR__) . '/var/u
 $usuarioId = $_SESSION['usuario_id'] ?? null;
 $usuarioActual = is_int($usuarioId) ? $usuarios->buscarPorId($usuarioId) : null ;
 
-return compact('catalogo', 'usuarios');
+return compact('catalogo', 'usuarios', 'usuarioActual');

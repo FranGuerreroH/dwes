@@ -19,10 +19,11 @@ abstract class Controlador
         require dirname(__DIR__, 2) . '/vistas/pie.php';
     }
 
-    protected function exigirUsuario(): Usuario {
-        $usuario = $this->app['usuarioActual'];
+    protected function exigirUsuario(): \App\Model\Usuario {
+        $usuario = $this->app['usuarioActual'] ?? null;
         if ($usuario === null) {
             header('Location: login.php', true, 302);
+            exit;
         }
         return $usuario;
     }

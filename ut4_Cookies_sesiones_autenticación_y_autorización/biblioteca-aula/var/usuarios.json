@@ -10,7 +10,7 @@
         "id": 2,
         "nombre": "HoracioHemerecioFerm\u00edn",
         "correo": "bobobobobobo@donpatch.es",
-        "passwordHash": "$2y$12$TVnMsNauXvJ96ecJQhMEoOha4hNzM4S4AgH5DSEjvPP4a55B9z3wm",
+        "passwordHash": "$2y$12$3l3e2WTZ8y0x0d\/FQP55fuwWrTZV7xeIKFeDcPIEYZL8\/g8YyR4nu", 
         "rol": "ROLE_USER"
     }
 ]

@@ -72,19 +72,19 @@ body.oscuro a {
     color:#a7eef2;
 }
 
+body.ampliado .libros li {
+    padding-block: 1.5rem ;
+}
+
+body.ampliado form {
+    padding-block: 1.5rem ;
+}
+
 body.compacto .libros li {
     padding-block: 1rem ;
 }
 
 body.compacto form {
     padding-block: 1rem ;
-}
-
-body.ampliado .libros li {
-    padding-block: 1.5rem ;
-}
-
-body.compacto form {
-    padding-block: 1.5rem ;
 }
 

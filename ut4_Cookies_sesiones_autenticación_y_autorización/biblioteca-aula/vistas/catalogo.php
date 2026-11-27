@@ -46,6 +46,10 @@
             </form>         
 
             <?php endif; ?>
+
+            <form >
+                <button>Borrar Libro</button>
+            </form>
             
         <?php endforeach; ?>
     </ul>
